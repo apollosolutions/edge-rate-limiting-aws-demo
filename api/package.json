@@ -1,0 +1,18 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "build": "esbuild index.js --bundle --loader:.graphql=text --outdir=out --platform=node --target=node14 --minify"
+  },
+  "dependencies": {
+    "@aws-sdk/client-secrets-manager": "^3.49.0",
+    "@faker-js/faker": "^6.0.0-alpha.5",
+    "@graphql-tools/mock": "^8.5.1",
+    "apollo-server": "^3.6.2",
+    "apollo-server-lambda": "^3.6.2",
+    "graphql": "^16.3.0"
+  }
+}

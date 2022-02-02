@@ -1,0 +1,50 @@
+enum CacheControlScope {
+  PUBLIC
+  PRIVATE
+}
+
+directive @cacheControl(
+  maxAge: Int
+  scope: CacheControlScope
+  inheritMaxAge: Boolean
+) on FIELD_DEFINITION | OBJECT | INTERFACE | UNION
+
+directive @cost(
+  weight: String!
+) on ARGUMENT_DEFINITION | ENUM | FIELD_DEFINITION | INPUT_FIELD_DEFINITION | OBJECT | SCALAR
+
+directive @listSize(
+  assumedSize: Int
+  requireOneSlicingArgument: Boolean = true
+  sizedFields: [String!]
+  slicingArguments: [String!]
+) on FIELD_DEFINITION
+
+type Astronaut {
+  id: ID!
+  missions: [Mission] @cost(weight: "10")
+  name: String
+}
+
+type Mission {
+  id: ID!
+  crew: [Astronaut] @cost(weight: "5")
+  designation: String!
+  startDate: String
+  endDate: String
+  vehicle: Vehicle! @cost(weight: "25")
+}
+
+type Vehicle {
+  id: ID!
+  model: String
+}
+
+type Query {
+  astronaut(id: ID!): Astronaut @cost(weight: "5")
+  astronauts: [Astronaut] @cost(weight: "50")
+  mission(id: ID!): Mission @cost(weight: "10")
+  missions: [Mission] @cost(weight: "100")
+  vehicle(id: ID!): Vehicle @cost(weight: "25")
+  vehicles: [Vehicle] @cost(weight: "250")
+}

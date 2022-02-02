@@ -1,0 +1,6 @@
+.vscode
+node_modules
+.env
+new_user_credentials.csv
+out
+yarn-error.log

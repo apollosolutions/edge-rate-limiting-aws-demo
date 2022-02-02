@@ -1,0 +1,21 @@
+{
+  "private": true,
+  "workspaces": [
+    "api",
+    "cost-analysis",
+    "edge-lambda",
+    "infra"
+  ],
+  "dependencies": {
+    "aws-cdk": "^2.10.0",
+    "concurrently": "^7.0.0",
+    "eslint": "^8.7.0"
+  },
+  "scripts": {
+    "build": "concurrently \"yarn build:api\" \"yarn build:cost-analysis\" \"yarn build:edge-lambda\"",
+    "build:watch": "concurrently \"yarn build:api --watch\" \"yarn build:cost-analysis --watch\" \"yarn build:edge-lambda --watch\"",
+    "build:api": "yarn workspace api build",
+    "build:cost-analysis": "yarn workspace cost-analysis build",
+    "build:edge-lambda": "yarn workspace edge-lambda build"
+  }
+}
